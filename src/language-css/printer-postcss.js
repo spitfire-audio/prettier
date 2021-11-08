@@ -74,6 +74,7 @@ const {
   isAtWordPlaceholderNode,
   isConfigurationNode,
   isParenGroupNode,
+  isSimpleRootSelector,
 } = require("./utils/index.js");
 const { locStart, locEnd } = require("./loc.js");
 const isLessParser = require("./utils/is-less-parser.js");
@@ -374,7 +375,8 @@ function genericPrint(path, options, print) {
         join(
           [
             ",",
-            insideAtRuleNode(path, ["extend", "custom-selector", "nest"])
+            insideAtRuleNode(path, ["extend", "custom-selector", "nest"]) ||
+            isSimpleRootSelector(node)
               ? line
               : hardline,
           ],

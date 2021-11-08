@@ -392,6 +392,15 @@ function isParenGroupNode(node) {
   );
 }
 
+function isSimpleRootSelector(node) {
+  return node.nodes.every(
+    (n) =>
+      n.type === "selector-selector" &&
+      n.nodes.length === 1 &&
+      n.nodes[0].type === "selector-tag"
+  );
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -441,4 +450,5 @@ module.exports = {
   isAtWordPlaceholderNode,
   isConfigurationNode,
   isParenGroupNode,
+  isSimpleRootSelector,
 };
