@@ -385,6 +385,15 @@ function isParenGroupNode(node) {
   );
 }
 
+function isSimpleRootSelector(node) {
+  return node.nodes.every(
+    (n) =>
+      n.type === "selector-selector" &&
+      n.nodes.length === 1 &&
+      n.nodes[0].type === "selector-tag"
+  );
+}
+
 export {
   getPropOfDeclNode,
   maybeToLowerCase,
@@ -433,4 +442,5 @@ export {
   isConfigurationNode,
   isParenGroupNode,
   isVarFunctionNode,
+  isSimpleRootSelector,
 };
