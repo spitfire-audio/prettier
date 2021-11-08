@@ -34,6 +34,7 @@ import {
   isTemplatePropNode,
   isMediaAndSupportsKeywords,
   lastLineHasInlineComment,
+  isSimpleRootSelector,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import {
@@ -351,7 +352,8 @@ function genericPrint(path, options, print) {
         join(
           [
             ",",
-            insideAtRuleNode(path, ["extend", "custom-selector", "nest"])
+            insideAtRuleNode(path, ["extend", "custom-selector", "nest"]) ||
+            isSimpleRootSelector(node)
               ? line
               : hardline,
           ],
