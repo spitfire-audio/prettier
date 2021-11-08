@@ -71,6 +71,7 @@ import {
   isConfigurationNode,
   isParenGroupNode,
   isVarFunctionNode,
+  isSimpleRootSelector,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import printUnit from "./utils/print-unit.js";
@@ -371,7 +372,8 @@ function genericPrint(path, options, print) {
         join(
           [
             ",",
-            insideAtRuleNode(path, ["extend", "custom-selector", "nest"])
+            insideAtRuleNode(path, ["extend", "custom-selector", "nest"]) ||
+            isSimpleRootSelector(node)
               ? line
               : hardline,
           ],
