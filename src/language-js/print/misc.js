@@ -1,5 +1,5 @@
 import { isNonEmptyArray } from "../../common/util.js";
-import { indent, join, line } from "../../document/builders.js";
+import { hardline, indent, join, line } from "../../document/builders.js";
 
 function printOptionalToken(path) {
   const { node } = path;
@@ -67,7 +67,7 @@ function printTypeScriptModifiers(path, options, print) {
   return [join(" ", path.map(print, "modifiers")), " "];
 }
 
-function adjustClause(node, clause, forceSpace) {
+function adjustClause(node, clause, hardBreak, forceSpace) {
   if (node.type === "EmptyStatement") {
     return ";";
   }
@@ -76,7 +76,8 @@ function adjustClause(node, clause, forceSpace) {
     return [" ", clause];
   }
 
-  return indent([line, clause]);
+  // [prettierx] breakBeforeStatement option
+  return indent([hardBreak ? hardline : line, clause]);
 }
 
 function printRestSpread(path, options, print) {
