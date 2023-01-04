@@ -83,6 +83,13 @@ const options = {
       },
     ],
   },
+  spaceLogicalNot: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces after NOT operator, except in the middle of `!!` (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+  },
   jsxSingleQuote: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
