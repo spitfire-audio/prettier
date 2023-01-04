@@ -52,6 +52,17 @@ const isMethodValue = (path) =>
 - "FunctionExpression"
 - `TSDeclareFunction`(TypeScript)
 */
+
+function shouldAddSpace(spaceBeforeFunctionParen, parametersDoc) {
+  if (spaceBeforeFunctionParen === "never")
+    return false;
+  else if (spaceBeforeFunctionParen === "always")
+    return true;
+
+  // not-empty
+  return parametersDoc.length > 4;
+}
+
 function printFunction(path, print, options, args) {
   if (isMethodValue(path)) {
     return printMethodValue(path, options, print);
@@ -99,6 +110,12 @@ function printFunction(path, print, options, args) {
   parts.push(
     printFunctionTypeParameters(path, options, print),
     group([
+      // [prettierx] --space-before-function-paren
+      // option support (...)
+      (node.id || node.typeParameters) &&
+      (shouldAddSpace(options.spaceBeforeFunctionParen, parametersDoc))
+        ? " "
+        : "",
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
@@ -165,6 +182,8 @@ function printMethodValue(path, options, print) {
   const parts = [
     printFunctionTypeParameters(path, options, print),
     group([
+      // [prettierx] --space-before-function-paren option support (...)
+      shouldAddSpace(options.spaceBeforeFunctionParen, parametersDoc) ? " " : "",
       shouldBreakParameters
         ? group(parametersDoc, { shouldBreak: true })
         : shouldGroupParameters
