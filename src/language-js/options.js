@@ -91,6 +91,13 @@ module.exports = {
       },
     ],
   },
+  spaceLogicalNot: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces after NOT operator, except in the middle of `!!` (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+  },
   jsxSingleQuote: {
     since: "1.15.0",
     category: CATEGORY_JAVASCRIPT,
