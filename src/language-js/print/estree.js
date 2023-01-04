@@ -368,10 +368,22 @@ function printEstree(path, options, print, args) {
         "with (",
         print("object"),
         ")",
-        adjustClause(node.body, print("body")),
+        // [prettierx] breakBeforeStatement option support
+        adjustClause(
+          node.body,
+          print("body"),
+          options.breakBeforeStatement === "always" ||
+            options.breakBeforeStatement === "conditionals"
+        ),
       ]);
     case "IfStatement": {
-      const con = adjustClause(node.consequent, print("consequent"));
+      const con = adjustClause(
+        node.consequent,
+        print("consequent"),
+        // [prettierx] breakBeforeStatement option support
+        options.breakBeforeStatement === "always" ||
+          options.breakBeforeStatement === "conditionals"
+      );
       const opening = group([
         "if (",
         group([indent([softline, print("test")]), softline]),
@@ -404,6 +416,9 @@ function printEstree(path, options, print, args) {
             adjustClause(
               node.alternate,
               print("alternate"),
+              // [prettierx] breakBeforeStatement option support
+              options.breakBeforeStatement === "always" ||
+                options.breakBeforeStatement === "conditionals",
               node.alternate.type === "IfStatement"
             )
           )
@@ -413,7 +428,13 @@ function printEstree(path, options, print, args) {
       return parts;
     }
     case "ForStatement": {
-      const body = adjustClause(node.body, print("body"));
+      const body = adjustClause(
+        node.body,
+        print("body"),
+        // [prettierx] breakBeforeStatement option support
+        options.breakBeforeStatement === "always" ||
+        options.breakBeforeStatement === "loops"
+      );
 
       // We want to keep dangling comments above the loop to stay consistent.
       // Any comment positioned between the for statement and the parentheses
@@ -452,7 +473,13 @@ function printEstree(path, options, print, args) {
         "while (",
         group([indent([softline, print("test")]), softline]),
         ")",
-        adjustClause(node.body, print("body")),
+        adjustClause(
+          node.body,
+          print("body"),
+          // [prettierx] breakBeforeStatement option support
+          options.breakBeforeStatement === "always" ||
+          options.breakBeforeStatement === "loops"
+        ),
       ]);
     case "ForInStatement":
       return group([
@@ -461,7 +488,13 @@ function printEstree(path, options, print, args) {
         " in ",
         print("right"),
         ")",
-        adjustClause(node.body, print("body")),
+        adjustClause(
+          node.body,
+          print("body"),
+          // [prettierx] breakBeforeStatement option support
+          options.breakBeforeStatement === "always" ||
+          options.breakBeforeStatement === "loops"
+        ),
       ]);
 
     case "ForOfStatement":
@@ -473,11 +506,23 @@ function printEstree(path, options, print, args) {
         " of ",
         print("right"),
         ")",
-        adjustClause(node.body, print("body")),
+        adjustClause(
+          node.body,
+          print("body"),
+          // [prettierx] breakBeforeStatement option support
+          options.breakBeforeStatement === "always" ||
+          options.breakBeforeStatement === "loops"
+        ),
       ]);
 
     case "DoWhileStatement": {
-      const clause = adjustClause(node.body, print("body"));
+      const clause = adjustClause(
+        node.body,
+        print("body"),
+        // [prettierx] breakBeforeStatement option support
+        options.breakBeforeStatement === "always" ||
+        options.breakBeforeStatement === "loops"
+      );
       const doBody = group(["do", clause]);
       parts = [doBody];
 

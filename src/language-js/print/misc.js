@@ -1,4 +1,4 @@
-import { indent, line } from "../../document/builders.js";
+import { hardline, indent, join, line } from "../../document/builders.js";
 import { isCallExpression, isMemberExpression } from "../utils/index.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
@@ -103,7 +103,7 @@ function printBindExpressionCallee(path, options, print) {
   return ["::", print("callee")];
 }
 
-function adjustClause(node, clause, forceSpace) {
+function adjustClause(node, clause, hardBreak, forceSpace) {
   if (node.type === "EmptyStatement") {
     return ";";
   }
@@ -112,7 +112,8 @@ function adjustClause(node, clause, forceSpace) {
     return [" ", clause];
   }
 
-  return indent([line, clause]);
+  // [prettierx] breakBeforeStatement option
+  return indent([hardBreak ? hardline : line, clause]);
 }
 
 function printRestSpread(path, print) {
