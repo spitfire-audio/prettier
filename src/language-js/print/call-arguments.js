@@ -59,6 +59,7 @@ function printCallArguments(path, options, print) {
   let anyArgEmptyLine = false;
   const lastArgIndex = args.length - 1;
   const printedArguments = [];
+
   iterateCallArgumentsPath(path, ({ node: arg }, index) => {
     let argDoc = print();
 
@@ -165,6 +166,8 @@ function printCallArguments(path, options, print) {
   }
 
   const contents = [
+    // [prettierx] --space-before-function-paren option support (...)
+    options.spaceBeforeFunctionParen !== "never" ? " " : "",
     "(",
     indent([softline, ...printedArguments]),
     ifBreak(maybeTrailingComma),

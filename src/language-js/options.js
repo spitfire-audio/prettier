@@ -62,6 +62,27 @@ const options = {
       "Do not print semicolons, except at the beginning of lines which may need them.",
   },
   singleQuote: commonOptions.singleQuote,
+  spaceBeforeFunctionParen: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "choice",
+    default: "never",
+    description:
+      "Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)",
+    choices: [
+      {
+        value: "never",
+        description: "never add space",
+      },
+      {
+        value: "not-empty",
+        description: "only add space if parens aren't empty",
+      },
+      {
+        value: "always",
+        description: "add space",
+      },
+    ],
+  },
   jsxSingleQuote: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
