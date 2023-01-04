@@ -167,6 +167,8 @@ function printCallArguments(path, options, print) {
   }
 
   const contents = [
+    // [prettierx] --space-before-function-paren option support (...)
+    options.spaceBeforeFunctionParen !== "never" ? " " : "",
     "(",
     indent([softline, ...printedArguments]),
     ifBreak(maybeTrailingComma),

@@ -52,6 +52,16 @@ const {
 const { printPropertyKey } = require("./property.js");
 const { printFunctionTypeParameters } = require("./misc.js");
 
+function shouldAddSpace(spaceBeforeFunctionParen, parametersDoc) {
+  if (spaceBeforeFunctionParen === "never")
+    return false;
+  else if (spaceBeforeFunctionParen === "always")
+    return true;
+
+  // not-empty
+  return parametersDoc.length > 4;
+}
+
 function printFunction(path, print, options, args) {
   const node = path.getValue();
 
@@ -105,6 +115,12 @@ function printFunction(path, print, options, args) {
   parts.push(
     printFunctionTypeParameters(path, options, print),
     group([
+      // [prettierx] --space-before-function-paren
+      // option support (...)
+      (node.id || node.typeParameters) &&
+      (shouldAddSpace(options.spaceBeforeFunctionParen, parametersDoc))
+        ? " "
+        : "",
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
@@ -169,6 +185,8 @@ function printMethodInternal(path, options, print) {
   const parts = [
     printFunctionTypeParameters(path, options, print),
     group([
+      // [prettierx] --space-before-function-paren option support (...)
+      shouldAddSpace(options.spaceBeforeFunctionParen, parametersDoc) ? " " : "",
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
