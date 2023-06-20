@@ -120,6 +120,11 @@ function postprocess(ast, options) {
           return node.types[0];
         }
         break;
+
+      case "IfStatement": // quick workaround for ast compare & breakBeforeElse
+        if (node.consequent.innerComments) {
+          delete node.consequent.innerComments;
+        }
     }
   });
 

@@ -22,6 +22,12 @@ const options = {
   },
   bracketSameLine: commonOptions.bracketSameLine,
   bracketSpacing: commonOptions.bracketSpacing,
+  breakBeforeElse: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description: "Always add a line break before else."
+  },
   breakBeforeStatement: {
     category: CATEGORY_JAVASCRIPT,
     type: "choice",
