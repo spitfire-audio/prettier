@@ -298,10 +298,10 @@ function printEstree(path, options, print, args) {
     case "UnaryExpression":
       parts.push(node.operator);
 
-      // [prettierx] spaceUnaryOps option support (...)
+      // [prettierx] spaceLogicalNot option support (...) - Based on spaceUnaryOps
       if (
         /[a-z]$/.test(node.operator) ||
-        (options.spaceUnaryOps && node.operator === "!" &&
+        (options.spaceLogicalNot && node.operator === "!" &&
           // [prettierx] no space between `!!`
           !(
             node.argument &&
